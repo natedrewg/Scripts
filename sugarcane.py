@@ -7,15 +7,30 @@ def once(i):
   pyautogui.mouseDown(button='left')
   keyboard.press('S')
 
-  time.sleep(21)
+  sleep()
   
   keyboard.release('S')
   keyboard.press('A')
 
-  time.sleep(21)
+  sleep()
 
   keyboard.release('A')
   i = i + 1
+
+def stop():
+      if keyboard.is_pressed('k'):
+        keyboard.release('S')
+        keyboard.release('A')
+        pyautogui.mouseUp(button='left')
+        keyboard.wait('k')
+        
+
+
+def sleep():
+  for i in range(42):
+    time.sleep(.5)
+    stop()
+
 
 
 def main():
@@ -24,8 +39,7 @@ def main():
 
   keyboard.wait('o')
 
-  while i < 30:
-  
+  while i < 500:
     once(i)
       
 
