@@ -2,51 +2,56 @@ import keyboard
 import time
 import pyautogui
 
-i = 0
 
-keyboard.wait('o')
-
-while i < 30:
+def once(i):
   pyautogui.mouseDown(button='left')
   keyboard.press('S')
 
-
-  for j in range(21):
-    time.sleep(1)
-    if keyboard.read_key('k'):
-      keyboard.release('S')
-      pyautogui.mouseUp(button='left')
-      keyboard.wait('k')
-      keyboard.press('S')
-      pyautogui.mouseDown(button='left')
-      j = j + 1
-    elif keyboard.read_key('o'):
-      keyboard.release('S')
-      pyautogui.mouseUp(button='left')
-      quit()
-    else:
-      j = j + 1
-
-
+  sleep('S')
+  
   keyboard.release('S')
   keyboard.press('A')
 
+  sleep('A')
 
-  for k in range(21):
-    time.sleep(1)
-    if keyboard.read_key('k'):
-      keyboard.release('S')
-      pyautogui.mouseUp(button='left')
-      keyboard.wait('K')
-      keyboard.press('A')
-      pyautogui.mouseDown(button='left')
-    elif keyboard.read_key('o'):
-      keyboard.release('S')
-      pyautogui.mouseUp(button='left')
-      quit()
-    else:
-      k = k + 1
-
-      
   keyboard.release('A')
-  i = i + 1
+
+def check(direction):
+      if keyboard.is_pressed('k'):
+        keyboard.release('S')
+        keyboard.release('A')
+        pyautogui.mouseUp(button='left')
+        keyboard.wait('k')
+        keyboard.press(direction)
+        pyautogui.mouseDown(button='left')
+      if keyboard.is_pressed('o'):
+        keyboard.release('S')
+        keyboard.release('A')
+        pyautogui.mouseUp(button='left')
+        quit()
+
+def stop():
+  keyboard.release('S')
+  keyboard.release('A')
+  pyautogui.mouseUp(button='left')
+
+
+def sleep(direction):
+  for i in range(20):
+    time.sleep(1)
+    check(direction) 
+
+def main():
+
+  i = 0
+
+  keyboard.wait('o')
+
+  while i < 5:
+    once(i)
+    i = i + 1
+      
+  stop()
+
+  print("You went through " + str(i) + " iterations!")
+main()
